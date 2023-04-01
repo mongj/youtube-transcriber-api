@@ -21,6 +21,7 @@ from youtube_transcript_api._errors import (
 from _errors import InvalidAPIUsage, TranscriptionError
 from _settings import LANGUAGE_CODES
 
+
 YOUTUBE_API_ERRORS = (
     FailedToCreateConsentCookie,
     NoTranscriptAvailable,
@@ -109,7 +110,7 @@ class TranscriptMetadata(Resource):
             ]
         }, 200
     
-# TO-DO
+
 class TranslatedTranscript(Resource):
     def get(self):
         # Get query params
@@ -139,6 +140,7 @@ class TranslatedTranscript(Resource):
             "transcripts": parse_transcript(translated_transcript.fetch())
         }, 200
 
+
 # Parse transcript object into string
 def parse_transcript(transcript) -> str:
     parsed_transcript = ""
@@ -153,6 +155,8 @@ def parse_transcript(transcript) -> str:
 
     return parsed_transcript
 
+
+# Retrieve transcript as a TranscriptList object
 def retrieve_transcript(video_id) -> TranscriptList:
     try:
         return YouTubeTranscriptApi.list_transcripts(video_id)
