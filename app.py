@@ -63,7 +63,7 @@ class GeneratedTranscript(Resource):
                         "languageCode": transcript.language_code,
                         "isGenerated": transcript.is_generated,
                         "isTranslatable": transcript.is_translatable,
-                        "transcript": parse_transcript(transcript.fetch())
+                        "text": parse_transcript(transcript.fetch())
                     } for transcript in transcript_list
                 ]
             }, 200
@@ -78,7 +78,7 @@ class GeneratedTranscript(Resource):
                             "languageCode": transcript.language_code,
                             "isGenerated": transcript.is_generated,
                             "isTranslatable": transcript.is_translatable,
-                            "transcript": parse_transcript(transcript.fetch())
+                            "text": parse_transcript(transcript.fetch())
                         }
                     ]
                 }, 200
