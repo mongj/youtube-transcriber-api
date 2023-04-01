@@ -90,6 +90,7 @@ The request returns a JSON object containing the following fields:
 
 ## Future Plans
 This project is still in active development. Future plans include
+- Add rate limiting
 - Proper API documentation
 - Automated testing
 - Integration with Large Language Models like GPT-3 to improve transcript quality, and enable transcript summarisation and generative Q&A
