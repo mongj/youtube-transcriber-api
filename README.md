@@ -1,54 +1,101 @@
 # youtube-transcriber-api
  
-This API provides a simple interface for retrieving transcripts and metadata for YouTube videos. It also provides the ability to translate transcripts into different languages.
+This API provides a simple interface for retrieving pure-text transcripts for YouTube videos. It also provides the ability to translate transcripts into different languages.
 
-### API Endpoints
+The API is currently hosted on Vercel and it is available for anyone to use at no cost.
 
+## API Endpoints
+
+Note: All language codes used should follow the **[ISO 639-1](https://www.w3schools.com/tags/ref_language_codes.asp)** standard 
+
+### Transcripts
+
+```
 GET /transcripts/
+```
+
 Retrieve transcripts for a specified YouTube video.
 (try: https://youtube-transcriber-api.vercel.app/transcripts/?id=k_GM1JA608Y&lang=en)
 
-**Request Parameters**
-id (required): The ID of the YouTube video.
-lang: (optional) The language code for the desired transcript. If no language is specified, all available transcripts will be returned.
+**Query Parameters**
+
+| Parameter | Required | Note                                                                                                                   |
+|-----------|----------|------------------------------------------------------------------------------------------------------------------------|
+| `id`      | Yes      | The ID of the YouTube video                                                                                            |
+| `lang`    | No       | The language code for the desired transcript. If no language is specified, all available transcripts will be returned  |
+
 
 **Response**
+
 The request returns a JSON object containing the following fields:
-video_id: The ID of the YouTube video.
-transcripts: An array of transcript objects. Each transcript object has the following fields:
-language: The name of the language.
-languageCode: The language code.
-isGenerated: Boolean indicating whether the transcript is machine-generated.
-isTranslatable: Boolean indicating whether the transcript can be translated.
-text: The text of the transcript.
 
-GET /metadata/
-Retrieve metadata for a specified YouTube video.
-(try: https://youtube-transcriber-api.vercel.app/metadata/?id=k_GM1JA608Y&lang=en)
+| Field         | Description                                                                                                                                                                                                                                                 |
+|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `video_id`    | The ID of the YouTube video                                                                                                                                                                                                                                 |
+| `transcripts` | A list of transcripts. Each transcript has the following fields:<br><br>`language`: The language of the transcript<br>`languageCode`: The ISO 639-1 code<br>`isGenerated`: Boolean indicating whether the transcript is machine-generated <br>`isTranslatable`: Boolean indicating whether the transcript can be translated<br>`text`: The transcript text                                                                                                                                                              |
 
-**Request Parameters**
-id (required): The ID of the YouTube video.
 
-**Response**
-The request returns a JSON object containing the following fields:
-video_id: The ID of the YouTube video.
-transcripts: An array of transcript objects. Each transcript object has the following fields:
-language: The name of the language.
-languageCode: The language code.
-isGenerated: Boolean indicating whether the transcript is machine-generated.
-isTranslatable: Boolean indicating whether the transcript can be translated.
+### Translation
 
+```
 GET /translations/
+```
+
 Retrieve a translated transcript for a specified YouTube video.
 (try: https://youtube-transcriber-api.vercel.app/transcripts/?id=k_GM1JA608Y&lang=es)
 
-**Request Parameters**
-id (required): The ID of the YouTube video.
-lang (required): The language code for the desired translation.
+**Query Parameters**
+| Parameter | Required | Note                                      |
+|-----------|----------|-------------------------------------------|
+| `id`      | Yes      | The ID of the YouTube video               |
+| `lang`    | Yes      | The language code for the target language |
 
 **Response**
+
 The request returns a JSON object containing the following fields:
-video_id: The ID of the YouTube video.
-sourceLanguage: The language code of the source transcript.
-targetLanguage: The language code of the target translation.
-transcripts: The text of the translated transcript.
+
+| Field            | Description                                 |
+|------------------|---------------------------------------------|
+| `video_id`       | The ID of the YouTube video                 |
+| `sourceLanguage` | The language code of the source transcript  |
+| `targetLanguage` | The language code of the target translation |
+| `transcripts`    | The transcript text                         |
+
+
+### Metadata
+
+```
+GET /metadata/
+```
+
+Retrieve transcript metadata for a specified YouTube video.
+(try: https://youtube-transcriber-api.vercel.app/metadata/?id=k_GM1JA608Y)
+
+**Query Parameters**
+
+| Parameter | Required | Note                        |
+|-----------|----------|-----------------------------|
+| `id`      | Yes      | The ID of the YouTube video |
+
+
+**Response**
+
+The request returns a JSON object containing the following fields:
+
+| Field          | Description                                                                                                       |
+|----------------|-------------------------------------------------------------------------------------------------------------------|
+| `video_id`     | The ID of the YouTube video.                                                                                      |
+| `transcripts`  | A list of transcript metadata. Each item has the following fields:<br><br>`language`: The language of the transcription<br>`languageCode`: The ISO 639-1 code<br>`isGenerated`: Boolean indicating whether the transcript is machine-generated <br>`isTranslatable`: Boolean indicating whether the transcript can be translated |
+
+
+## Future Plans
+This project is still in active development. Future plans include
+- Proper API documentation
+- Automated testing
+- Integration with Large Language Models like GPT-3 to improve transcript quality, and enable transcript summarisation and generative Q&A
+
+## Donation
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/mjzhang)
+
+## License
+[See license](https://github.com/mongj/youtube-transcriber-api/blob/main/LICENSE)
