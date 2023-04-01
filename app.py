@@ -181,7 +181,3 @@ app.register_error_handler(TranscriptionError, TranscriptionError)
 @app.errorhandler(TranscriptionError)
 def handle_exception(e):
     return jsonify(message=e.description), e.code
-
-
-if __name__ == '__main__':
-    app.run(debug=False)
