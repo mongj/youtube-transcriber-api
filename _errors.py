@@ -35,8 +35,14 @@ class CustomHTTPException(HTTPException):
         
 
 class InvalidAPIUsage(CustomHTTPException):
+    """
+    Custom HTTP exception for invalid client request eg. query parameter not provided
+    """
     code=400
 
 
 class TranscriptionError(CustomHTTPException):
+    """
+    Custom HTTP exception for error encountered during transcription eg. video cannot be found
+    """
     code=500
