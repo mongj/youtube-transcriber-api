@@ -44,7 +44,7 @@ class GeneratedTranscript(Resource):
             }, 200
         else:
             try:
-                transcript = transcript_list.find_transcript([language_codes.lower()])
+                transcript = transcript_list.find_transcript([language_codes])
                 return {
                     "video_id": video_id,
                     "transcripts": [build_transcript(transcript, output_type, include_line_break, include_sfx)]

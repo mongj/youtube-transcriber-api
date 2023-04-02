@@ -6,7 +6,7 @@ The API is currently hosted on Vercel and it is available for anyone to use at n
 
 ## API Endpoints
 
-Note: All language codes used should follow the **[ISO 639-1](https://www.w3schools.com/tags/ref_language_codes.asp)** standard 
+Note: All language codes used should follow the **[ISO 639-1](https://www.w3schools.com/tags/ref_language_codes.asp)** standard (case-sensitive)
 
 ### Transcripts
 
