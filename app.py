@@ -1,17 +1,14 @@
-import re
-
 from flask import Flask, request, jsonify
 from flask_restful import Api, Resource
 from werkzeug.exceptions import HTTPException
 
-from youtube_transcript_api import YouTubeTranscriptApi
-from youtube_transcript_api._transcripts import TranscriptList
 from youtube_transcript_api._errors import NoTranscriptFound
 
 from _errors import InvalidAPIUsage, TranscriptionError
 from _errors import YOUTUBE_API_ERRORS
-from _settings import LANGUAGE_CODES
-
+from _settings import LANGUAGE_CODES, TRANSCRIPT_OUTPUT_TYPES
+from _parser import parse_transcript
+from _transcript import retrieve_transcript, build_transcript
 
 # Instantiate the app
 app = Flask(__name__)
@@ -24,11 +21,18 @@ class GeneratedTranscript(Resource):
         # Get query params
         video_id = request.args.get('id')
         language_codes = request.args.get('lang')
+        output_type = request.args.get('type') or "text"
+        include_line_break = bool(int(request.args.get('lb') or 0))
+        include_sfx = bool(int(request.args.get('sfx') or 0))
 
         # Validate request
         if not video_id:
             raise InvalidAPIUsage("video id is required but not provided")
-        
+
+        output_type = output_type.lower()
+        if not output_type in TRANSCRIPT_OUTPUT_TYPES:
+            raise InvalidAPIUsage("Invalid output type. Output type must be either 'json','text','srt', or 'vtt'")
+
         # Attempt to retrieve the transcript
         transcript_list = retrieve_transcript(video_id)
 
@@ -36,58 +40,17 @@ class GeneratedTranscript(Resource):
         if not language_codes:
             return {
                 "video_id": video_id,
-                "transcripts": [
-                    {
-                        "language": transcript.language,
-                        "languageCode": transcript.language_code,
-                        "isGenerated": transcript.is_generated,
-                        "isTranslatable": transcript.is_translatable,
-                        "text": parse_transcript(transcript.fetch())
-                    } for transcript in transcript_list
-                ]
+                "transcripts": [build_transcript(transcript, output_type, include_line_break, include_sfx) for transcript in transcript_list]
             }, 200
         else:
             try:
-                transcript = transcript_list.find_transcript([language_codes])
+                transcript = transcript_list.find_transcript([language_codes.lower()])
                 return {
                     "video_id": video_id,
-                    "transcripts": [
-                        {
-                            "language": transcript.language,
-                            "languageCode": transcript.language_code,
-                            "isGenerated": transcript.is_generated,
-                            "isTranslatable": transcript.is_translatable,
-                            "text": parse_transcript(transcript.fetch())
-                        }
-                    ]
+                    "transcripts": [build_transcript(transcript, output_type, include_line_break, include_sfx)]
                 }, 200
-            except NoTranscriptFound as e:
+            except NoTranscriptFound:
                 raise TranscriptionError("No transcript is found for the specified language")
-
-
-class TranscriptMetadata(Resource):
-    def get(self):
-        # Get query params
-        video_id = request.args.get('id')
-
-        # Validate request
-        if not video_id:
-            raise InvalidAPIUsage("video id is required but not provided")
-        
-        # Attempt to retrieve the transcript
-        transcript_list = retrieve_transcript(video_id)
-
-        return {
-            "video_id": video_id,
-            "transcripts": [
-                {
-                    "language": transcript.language,
-                    "languageCode": transcript.language_code,
-                    "isGenerated": transcript.is_generated,
-                    "isTranslatable": transcript.is_translatable
-                } for transcript in transcript_list
-            ]
-        }, 200
     
 
 class TranslatedTranscript(Resource):
@@ -120,33 +83,35 @@ class TranslatedTranscript(Resource):
         }, 200
 
 
-# Parse transcript object into string
-def parse_transcript(transcript) -> str:
-    parsed_transcript = ""
+class TranscriptMetadata(Resource):
+    def get(self):
+        # Get query params
+        video_id = request.args.get('id')
 
-    for text in transcript:
-        t = text["text"]
-        parsed_transcript += t + " "
-    
-    parsed_transcript = parsed_transcript.replace('>>','')
-    parsed_transcript = re.sub("[\[].*?[\]]", '', parsed_transcript)
-    parsed_transcript = parsed_transcript.strip()
+        # Validate request
+        if not video_id:
+            raise InvalidAPIUsage("video id is required but not provided")
+        
+        # Attempt to retrieve the transcript
+        transcript_list = retrieve_transcript(video_id)
 
-    return parsed_transcript
-
-
-# Retrieve transcript as a TranscriptList object
-def retrieve_transcript(video_id) -> TranscriptList:
-    try:
-        return YouTubeTranscriptApi.list_transcripts(video_id)
-    except YOUTUBE_API_ERRORS as e:
-        raise TranscriptionError(e.cause)
+        return {
+            "video_id": video_id,
+            "transcripts": [
+                {
+                    "language": transcript.language,
+                    "languageCode": transcript.language_code,
+                    "isGenerated": transcript.is_generated,
+                    "isTranslatable": transcript.is_translatable
+                } for transcript in transcript_list
+            ]
+        }, 200
 
 
 # Register API resources
-api.add_resource(GeneratedTranscript, "/transcripts/")
-api.add_resource(TranscriptMetadata, "/metadata/")
-api.add_resource(TranslatedTranscript, "/translations/")
+api.add_resource(GeneratedTranscript, "/1/transcripts/")
+api.add_resource(TranscriptMetadata, "/1/metadata/")
+api.add_resource(TranslatedTranscript, "/1/translations/")
 
 
 # Register custom error handlers

@@ -1,3 +1,12 @@
+from youtube_transcript_api.formatters import *
+
+TRANSCRIPT_OUTPUT_TYPES = {
+    "json": JSONFormatter(),
+    "text": TextFormatter(),
+    "vtt": WebVTTFormatter(),
+    "srt": SRTFormatter(),
+}
+
 LANGUAGE_CODES = [
     "en",
     "es",
