@@ -11,7 +11,7 @@ Note: All language codes used should follow the **[ISO 639-1](https://www.w3scho
 ### Transcripts
 
 ```
-GET /transcripts/
+GET /1/transcripts/{{id}}
 ```
 
 Retrieve transcripts for a specified YouTube video.
@@ -19,13 +19,13 @@ Retrieve transcripts for a specified YouTube video.
 
 **Query Parameters**
 
-| Parameter            | Required | Note                                                                                                                                  |
-|----------------------|----------|---------------------------------------------------------------------------------------------------------------------------------------|
-| `id`                 | Yes      | The ID of the YouTube video                                                                                                           |
-| `lang`               | No       | The language code for the desired transcript. If no language is specified, all available transcripts will be returned                 |
-| `output_type`        | No       | The desired output format. Accepts `json`, `text`, `srt`, and `vtt`                                                                   |
-| `include_line_break` | No       | Boolean (0 or 1) indicating whether the transcript should contain line breaks. Only applies for output_type `text`                    |
-| `include_sfx`        | No       | Boolean (0 or 1) indicating whether the transcript should contain sound effects information eg. \[Cheering\], \[Applause\], \[Music\] |
+| Parameter            | Required | Note                                                                                                                                                                 |
+|----------------------|----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `id`                 | Yes      | The ID of the YouTube video                                                                                                                                          |
+| `lang`               | No       | The language code for the desired transcript. If no language is specified, all available transcripts will be returned                                                |
+| `output_type`        | No       | The desired output format. Accepts `json`, `text`, `srt`, and `vtt`. Default to `text` if not specified                                                              |
+| `include_line_break` | No       | Boolean (0 or 1) indicating whether the transcript should contain line breaks. Only applies for output_type `text`. Default to 0 if not specified                    |
+| `include_sfx`        | No       | Boolean (0 or 1) indicating whether the transcript should contain sound effects information eg. \[Cheering\], \[Applause\], \[Music\]. Default to 0 if not specified |
 
 
 **Response**
@@ -41,7 +41,7 @@ The request returns a JSON object containing the following fields:
 ### Translation
 
 ```
-GET /translations/
+GET /1/translations/{{id}}{{lang}}
 ```
 
 Retrieve a translated transcript for a specified YouTube video.
@@ -68,7 +68,7 @@ The request returns a JSON object containing the following fields:
 ### Metadata
 
 ```
-GET /metadata/
+GET /1/metadata/{{id}}
 ```
 
 Retrieve transcript metadata for a specified YouTube video.
