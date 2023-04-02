@@ -15,24 +15,27 @@ GET /transcripts/
 ```
 
 Retrieve transcripts for a specified YouTube video.
-(try: https://youtube-transcriber-api.vercel.app/transcripts/?id=k_GM1JA608Y&lang=en)
+(try: https://youtube-transcriber-api.vercel.app/1/transcripts/?id=k_GM1JA608Y&lang=en)
 
 **Query Parameters**
 
-| Parameter | Required | Note                                                                                                                   |
-|-----------|----------|------------------------------------------------------------------------------------------------------------------------|
-| `id`      | Yes      | The ID of the YouTube video                                                                                            |
-| `lang`    | No       | The language code for the desired transcript. If no language is specified, all available transcripts will be returned  |
+| Parameter            | Required | Note                                                                                                                                  |
+|----------------------|----------|---------------------------------------------------------------------------------------------------------------------------------------|
+| `id`                 | Yes      | The ID of the YouTube video                                                                                                           |
+| `lang`               | No       | The language code for the desired transcript. If no language is specified, all available transcripts will be returned                 |
+| `output_type`        | No       | The desired output format. Accepts `json`, `text`, `srt`, and `vtt`                                                                   |
+| `include_line_break` | No       | Boolean (0 or 1) indicating whether the transcript should contain line breaks. Only applies for output_type `text`                    |
+| `include_sfx`        | No       | Boolean (0 or 1) indicating whether the transcript should contain sound effects information eg. \[Cheering\], \[Applause\], \[Music\] |
 
 
 **Response**
 
 The request returns a JSON object containing the following fields:
 
-| Field         | Description                                                                                                                                                                                                                                                 |
-|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `video_id`    | The ID of the YouTube video                                                                                                                                                                                                                                 |
-| `transcripts` | A list of transcripts. Each transcript has the following fields:<br><br>`language`: The language of the transcript<br>`languageCode`: The ISO 639-1 code<br>`isGenerated`: Boolean indicating whether the transcript is machine-generated <br>`isTranslatable`: Boolean indicating whether the transcript can be translated<br>`text`: The transcript text                                                                                                                                                              |
+| Field         | Description                                                                                                                                                                                                                                                                                                                                                                   |
+|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `video_id`    | The ID of the YouTube video                                                                                                                                                                                                                                                                                                                                                   |
+| `transcripts` | A list of transcripts. Each transcript has the following fields:<br><br>`language`: The language of the transcript<br>`languageCode`: The ISO 639-1 code<br>`isGenerated`: Boolean indicating whether the transcript is machine-generated <br>`isTranslatable`: Boolean indicating whether the transcript can be translated<br>`text`: The transcript in the specified format |
 
 
 ### Translation
@@ -42,7 +45,7 @@ GET /translations/
 ```
 
 Retrieve a translated transcript for a specified YouTube video.
-(try: https://youtube-transcriber-api.vercel.app/transcripts/?id=k_GM1JA608Y&lang=es)
+(try: https://youtube-transcriber-api.vercel.app/1/transcripts/?id=k_GM1JA608Y&lang=es)
 
 **Query Parameters**
 | Parameter | Required | Note                                      |
@@ -69,7 +72,7 @@ GET /metadata/
 ```
 
 Retrieve transcript metadata for a specified YouTube video.
-(try: https://youtube-transcriber-api.vercel.app/metadata/?id=k_GM1JA608Y)
+(try: https://youtube-transcriber-api.vercel.app/1/metadata/?id=k_GM1JA608Y)
 
 **Query Parameters**
 
