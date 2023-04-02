@@ -6,33 +6,12 @@ from werkzeug.exceptions import HTTPException
 
 from youtube_transcript_api import YouTubeTranscriptApi
 from youtube_transcript_api._transcripts import TranscriptList
-from youtube_transcript_api._errors import (
-    FailedToCreateConsentCookie,
-    NoTranscriptAvailable,
-    NoTranscriptFound,
-    NotTranslatable,
-    TooManyRequests,
-    TranscriptsDisabled,
-    TranslationLanguageNotAvailable,
-    VideoUnavailable,
-    YouTubeRequestFailed,
-)
+from youtube_transcript_api._errors import NoTranscriptFound
 
 from _errors import InvalidAPIUsage, TranscriptionError
+from _errors import YOUTUBE_API_ERRORS
 from _settings import LANGUAGE_CODES
 
-
-YOUTUBE_API_ERRORS = (
-    FailedToCreateConsentCookie,
-    NoTranscriptAvailable,
-    NoTranscriptFound,
-    NotTranslatable,
-    TooManyRequests,
-    TranscriptsDisabled,
-    TranslationLanguageNotAvailable,
-    VideoUnavailable,
-    YouTubeRequestFailed,
-)
 
 # Instantiate the app
 app = Flask(__name__)
