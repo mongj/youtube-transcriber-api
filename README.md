@@ -19,13 +19,13 @@ Retrieve transcripts for a specified YouTube video.
 
 **Query Parameters**
 
-| Parameter            | Required | Note                                                                                                                                                                 |
-|----------------------|----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `id`                 | Yes      | The ID of the YouTube video                                                                                                                                          |
-| `lang`               | No       | The language code for the desired transcript. If no language is specified, all available transcripts will be returned                                                |
-| `output_type`        | No       | The desired output format. Accepts `json`, `text`, `srt`, and `vtt`. Default to `text` if not specified                                                              |
-| `include_line_break` | No       | Boolean (0 or 1) indicating whether the transcript should contain line breaks. Only applies for output_type `text`. Default to 0 if not specified                    |
-| `include_sfx`        | No       | Boolean (0 or 1) indicating whether the transcript should contain sound effects information eg. \[Cheering\], \[Applause\], \[Music\]. Default to 0 if not specified |
+| Parameter | Required | Note                                                                                                                                                                 |
+|-----------|----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `id`      | Yes      | The ID of the YouTube video                                                                                                                                          |
+| `lang`    | No       | The language code for the desired transcript. If no language is specified, all available transcripts will be returned                                                |
+| `type`    | No       | The desired output format. Accepts `json`, `text`, `srt`, and `vtt`. Default to `text` if not specified                                                              |
+| `lb`      | No       | Boolean (0 or 1) indicating whether the transcript should contain line breaks. Only applies for type `text`. Default to 0 if not specified                           |
+| `sfx`     | No       | Boolean (0 or 1) indicating whether the transcript should contain sound effects information eg. \[Cheering\], \[Applause\], \[Music\]. Default to 0 if not specified |
 
 
 **Response**
