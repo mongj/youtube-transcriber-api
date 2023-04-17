@@ -1,5 +1,6 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 from flask_restful import Api, Resource
+from flask_cors import CORS
 from werkzeug.exceptions import HTTPException
 
 from youtube_transcript_api._errors import NoTranscriptFound
@@ -12,7 +13,8 @@ from _transcript import retrieve_transcript, build_transcript
 
 # Instantiate the app
 app = Flask(__name__)
-api = Api(app)
+CORS(app)
+api = Api(app, prefix='/v1')
 
 app.config['TRAP_HTTP_EXCEPTIONS']=True
 
@@ -51,7 +53,7 @@ class GeneratedTranscript(Resource):
                 }, 200
             except NoTranscriptFound:
                 raise TranscriptionError("No transcript is found for the specified language")
-    
+
 
 class TranslatedTranscript(Resource):
     def get(self):
@@ -109,10 +111,9 @@ class TranscriptMetadata(Resource):
 
 
 # Register API resources
-api.add_resource(GeneratedTranscript, "/1/transcripts/")
-api.add_resource(TranscriptMetadata, "/1/metadata/")
-api.add_resource(TranslatedTranscript, "/1/translations/")
-
+api.add_resource(GeneratedTranscript, "/transcripts/")
+api.add_resource(TranscriptMetadata, "/metadata/")
+api.add_resource(TranslatedTranscript, "/translations/")
 
 # Register custom error handlers
 app.register_error_handler(InvalidAPIUsage, InvalidAPIUsage)
