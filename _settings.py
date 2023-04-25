@@ -3,7 +3,7 @@ from youtube_transcript_api.formatters import *
 TRANSCRIPT_OUTPUT_TYPES = {
     "json": JSONFormatter(),
     "text": TextFormatter(),
-    "vtt": WebVTTFormatter(),
+    "webvtt": WebVTTFormatter(),
     "srt": SRTFormatter(),
 }
 
