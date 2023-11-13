@@ -2,7 +2,7 @@
  
 Youtube's official API currently does not support fetching of a video's transcript. This API is built on [jdepoix's API](https://github.com/jdepoix/youtube-transcript-api), and provides a simple interface for retrieving pure-text transcripts for YouTube videos. It also provides the ability to translate transcripts into different languages.
 
-The API is currently hosted on Vercel and it is available for anyone to use at no cost.
+The API is currently hosted on Vercel and it is available for anyone to use at no cost. (the cold start is terrible so the first request might take ~15sec)
 
 ## API Endpoints
 
