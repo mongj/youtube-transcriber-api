@@ -25,7 +25,8 @@ def parse_transcript(
     parsed_transcript = formatter.format_transcript(transcript)
 
     if not include_sfx:
-        parsed_transcript = re.sub("[\[].[^\{\}]*?[\]]", "", parsed_transcript)
+        parsed_transcript = re.sub(r"\(.*\)", "", parsed_transcript)
+        parsed_transcript = re.sub(r"\s\s+", " ", parsed_transcript)
 
     if (not include_line_break) and (output_type == "text"):
         parsed_transcript = parsed_transcript.replace("\n"," ").replace("  ","\n")
