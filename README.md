@@ -9,11 +9,11 @@ Note: All language codes used should follow the **[ISO 639-1](https://www.w3scho
 ### Transcripts
 
 ```
-GET /v1/transcripts/{{id}}
+GET /v1/transcripts{{id}}
 ```
 
 Retrieve transcripts for a specified YouTube video.
-(try: https://youtube-transcriber-api.vercel.app/v1/transcripts/?id=k_GM1JA608Y&lang=en)
+(try: https://youtube-transcriber-api.vercel.app/v1/transcripts?id=k_GM1JA608Y&lang=en)
 
 **Query Parameters**
 
@@ -21,7 +21,7 @@ Retrieve transcripts for a specified YouTube video.
 | --------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `id`      | Yes      | The ID of the YouTube video                                                                                                                                          |
 | `lang`    | No       | The language code for the desired transcript. If no language is specified, all available transcripts will be returned                                                |
-| `type`    | No       | The desired output format. Accepts `json`, `text`, `srt`, and `vtt`. Default to `text` if not specified                                                              |
+| `type`    | No       | The desired output format. Accepts `json`, `text`, `srt`, and `webvtt`. Default to `text` if not specified                                                           |
 | `lb`      | No       | Boolean (0 or 1) indicating whether the transcript should contain line breaks. Only applies for type `text`. Default to 0 if not specified                           |
 | `sfx`     | No       | Boolean (0 or 1) indicating whether the transcript should contain sound effects information eg. \[Cheering\], \[Applause\], \[Music\]. Default to 0 if not specified |
 
@@ -37,11 +37,11 @@ The request returns a JSON object containing the following fields:
 ### Translation
 
 ```
-GET /v1/translations/{{id}}{{lang}}
+GET /v1/translations{{id}}{{lang}}
 ```
 
 Retrieve a translated transcript for a specified YouTube video.
-(try: https://youtube-transcriber-api.vercel.app/v1/transcripts/?id=k_GM1JA608Y&lang=es)
+(try: https://youtube-transcriber-api.vercel.app/v1/transcripts?id=k_GM1JA608Y&lang=es)
 
 **Query Parameters**
 | Parameter | Required | Note |
@@ -63,11 +63,11 @@ The request returns a JSON object containing the following fields:
 ### Metadata
 
 ```
-GET /v1/metadata/{{id}}
+GET /v1/metadata{{id}}
 ```
 
 Retrieve transcript metadata for a specified YouTube video.
-(try: https://youtube-transcriber-api.vercel.app/v1/metadata/?id=k_GM1JA608Y)
+(try: https://youtube-transcriber-api.vercel.app/v1/metadata?id=k_GM1JA608Y)
 
 **Query Parameters**
 
