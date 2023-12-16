@@ -1,6 +1,6 @@
 # youtube-transcriber-api
 
-Youtube's official API currently does not support fetching of a video's transcript. This API is built on [jdepoix's API](https://github.com/jdepoix/youtube-transcript-api), and provides a simple interface for retrieving pure-text transcripts for YouTube videos. It also provides the ability to translate transcripts into different languages.
+Youtube's official API currently does not support fetching of a video's transcript. This project is a RESTful API built on top of [jdepoix's API](https://github.com/jdepoix/youtube-transcript-api), and provides simple HTTP endpoints for retrieving pure-text transcripts for YouTube videos. It also provides the ability to translate transcripts into different languages.
 
 ## API Endpoints
 
