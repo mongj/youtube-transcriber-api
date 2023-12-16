@@ -3,6 +3,7 @@ name: CI Build, Test, and Deploy
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
 on:
   pull_request:
@@ -25,8 +26,10 @@ jobs:
           pip install -r requirements.txt
       - name: Test with pytest
         run: |
-          pip install pytest
-          pytest -v
+          pip install pytest pytest-cov
+          pytest -v --cov=. --cov-report=xml
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
 
   stag-deploy:
     name: Deployment to staging
