@@ -3,11 +3,12 @@ from flask_restful import Resource
 
 from youtube_transcript_api._errors import NoTranscriptFound
 
-from _errors import InvalidAPIUsage, TranscriptionError
-from _errors import YOUTUBE_API_ERRORS
-from _settings import LANGUAGE_CODES, TRANSCRIPT_OUTPUT_TYPES
-from _parser import parse_transcript
-from _transcript import retrieve_transcript, build_transcript
+from ._errors import InvalidAPIUsage, TranscriptionError
+from ._errors import YOUTUBE_API_ERRORS, error_messages
+from ._settings import LANGUAGE_CODES, TRANSCRIPT_OUTPUT_TYPES
+from ._parser import parse_transcript
+from ._transcript import retrieve_transcript, build_transcript
+
 
 class Transcript(Resource):
     def get(self):
@@ -20,11 +21,11 @@ class Transcript(Resource):
 
         # Validate request
         if not video_id:
-            raise InvalidAPIUsage("video id is required but not provided")
+            raise InvalidAPIUsage(error_messages["noVideoId"])
 
         output_type = output_type.lower()
         if not output_type in TRANSCRIPT_OUTPUT_TYPES:
-            raise InvalidAPIUsage("Invalid output type. Output type must be either 'json','text','srt', or 'vtt'")
+            raise InvalidAPIUsage(error_messages["invalidOutput"])
 
         # Attempt to retrieve the transcript
         transcript_list = retrieve_transcript(video_id)
@@ -32,18 +33,18 @@ class Transcript(Resource):
         # Retrieve the transcript in specified language. If no language was specified, all available transcripts will be returned
         if not language_codes:
             return {
-                "video_id": video_id,
+                "videoId": video_id,
                 "transcripts": [build_transcript(transcript, output_type, include_line_break, include_sfx) for transcript in transcript_list]
             }, 200
         else:
             try:
                 transcript = transcript_list.find_transcript([language_codes])
                 return {
-                    "video_id": video_id,
+                    "videoId": video_id,
                     "transcripts": [build_transcript(transcript, output_type, include_line_break, include_sfx)]
                 }, 200
             except NoTranscriptFound:
-                raise TranscriptionError("No transcript is found for the specified language")
+                raise TranscriptionError(error_messages["noTranscriptFoundForLanguage"])
 
 
 class TranslatedTranscript(Resource):
@@ -54,10 +55,10 @@ class TranslatedTranscript(Resource):
 
         # Validate request
         if not video_id:
-            raise InvalidAPIUsage("video id is required but not provided")
+            raise InvalidAPIUsage(error_messages["noVideoId"])
         if not language_code:
-            raise InvalidAPIUsage("target language is required but not provided")
-        
+            raise InvalidAPIUsage(error_messages["noTargetLanguage"])
+
         # Attempt to retrieve the transcript
         transcript_list = retrieve_transcript(video_id)
 
@@ -83,13 +84,13 @@ class TranscriptMetadata(Resource):
 
         # Validate request
         if not video_id:
-            raise InvalidAPIUsage("video id is required but not provided")
-        
+            raise InvalidAPIUsage(error_messages["noVideoId"])
+
         # Attempt to retrieve the transcript
         transcript_list = retrieve_transcript(video_id)
 
         return {
-            "video_id": video_id,
+            "videoId": video_id,
             "transcripts": [
                 {
                     "language": transcript.language,

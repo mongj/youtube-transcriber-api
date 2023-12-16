@@ -24,6 +24,12 @@ YOUTUBE_API_ERRORS = (
     YouTubeRequestFailed,
 )
 
+error_messages = {
+    "noVideoId": "video id is required but not provided",
+    "invalidOutput": "Invalid output type. Output type must be either 'json','text','srt', or 'vtt'",
+    "noTranscriptFoundForLanguage": "No transcript is found for the specified language",
+    "noTargetLanguage": "target language is required but not provided"
+}
 
 class CustomHTTPException(HTTPException):
     """
@@ -45,4 +51,4 @@ class TranscriptionError(CustomHTTPException):
     """
     Custom HTTP exception for error encountered during transcription eg. video cannot be found
     """
-    code=500
+    code=200

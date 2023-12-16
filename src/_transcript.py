@@ -1,9 +1,9 @@
 from youtube_transcript_api import YouTubeTranscriptApi
 from youtube_transcript_api._transcripts import TranscriptList
 
-from _parser import parse_transcript
-from _errors import YOUTUBE_API_ERRORS
-from _errors import TranscriptionError
+from ._parser import parse_transcript
+from ._errors import YOUTUBE_API_ERRORS
+from ._errors import TranscriptionError
 
 # Retrieve transcript as a TranscriptList object
 def retrieve_transcript(video_id) -> TranscriptList:
