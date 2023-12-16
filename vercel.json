@@ -12,9 +12,6 @@
     }
   ],
   "git": {
-    "deploymentEnabled": {
-      "main": false,
-      "dev": false
-    }
+    "deploymentEnabled": false
   }
 }
