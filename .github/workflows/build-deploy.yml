@@ -31,6 +31,7 @@ jobs:
   stag-deploy:
     name: Deployment to staging
     runs-on: ubuntu-latest
+    environment: Staging
     needs: test
     if: github.ref == 'refs/heads/staging'
     steps:
@@ -47,6 +48,7 @@ jobs:
   prod-deploy:
     name: Deployment to production
     runs-on: ubuntu-latest
+    environment: Production
     needs: test
     if: github.ref == 'refs/heads/main'
     steps:
