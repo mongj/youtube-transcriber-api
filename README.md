@@ -86,12 +86,6 @@ The request returns a JSON object containing the following fields:
 | `video_id`    | The ID of the YouTube video.                                                                                                                                                                                                                                                                                                     |
 | `transcripts` | A list of transcript metadata. Each item has the following fields:<br><br>`language`: The language of the transcription<br>`languageCode`: The ISO 639-1 code<br>`isGenerated`: Boolean indicating whether the transcript is machine-generated <br>`isTranslatable`: Boolean indicating whether the transcript can be translated |
 
-## Future Plans
-
-This project is still in active development. Future plans include
-
-- Add rate limiting
-- Automated testing
 
 ## Donation
 
