@@ -48,26 +48,23 @@ class TranscriptionError(HTTPException):
     """
     def __init__(self, description):
         self.description = description
-
-        if description ==  FailedToCreateConsentCookie.cause:
-            self.code=400
-        elif description ==  NoTranscriptAvailable.cause:
-            self.code=404
-        elif description ==  NoTranscriptFound.cause:
-            self.code=404
-        elif description ==  NotTranslatable.cause:
-            self.code=404
-        elif description ==  TooManyRequests.cause:
-            self.code=403
-        elif description ==  TranscriptsDisabled.cause:
-            self.code=404
-        elif description ==  TranslationLanguageNotAvailable.cause:
-            self.code=404
-        elif description ==  VideoUnavailable.cause:
-            self.code=404
-        elif description ==  YouTubeRequestFailed.cause:
-            self.code=400
+        if description ==  FailedToCreateConsentCookie.CAUSE_MESSAGE:
+            self.code = 400
+        elif description ==  NoTranscriptAvailable.CAUSE_MESSAGE:
+            self.code = 404
+        elif description ==  NotTranslatable.CAUSE_MESSAGE:
+            self.code = 404
+        elif description ==  TooManyRequests.CAUSE_MESSAGE:
+            self.code = 403
+        elif description ==  TranscriptsDisabled.CAUSE_MESSAGE:
+            self.code = 404
+        elif description ==  TranslationLanguageNotAvailable.CAUSE_MESSAGE:
+            self.code = 404
+        elif description ==  VideoUnavailable.CAUSE_MESSAGE:
+            self.code = 404
+        elif description ==  YouTubeRequestFailed.CAUSE_MESSAGE:
+            self.code = 400
         elif description == error_messages["noTranscriptFoundForLanguage"]:
-            self.code=404
+            self.code = 404
         else:
-            self.code=500
+            self.code = 500
