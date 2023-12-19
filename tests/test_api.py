@@ -28,7 +28,7 @@ def test_api(url, expected):
 @pytest.mark.parametrize('endpoints, expected_code, expected_message', [
     ('/v1/transcripts', 400, error_messages["noVideoId"]),
     ('/v1/transcripts?id=P6FORpg0KVo&type=badtype', 400, error_messages["invalidOutput"]),
-    ('/v1/transcripts?id=P6FORpg0KVo&lang=zzz', 200, error_messages["noTranscriptFoundForLanguage"]),
+    ('/v1/transcripts?id=P6FORpg0KVo&lang=zzz', 404, error_messages["noTranscriptFoundForLanguage"]),
     ('/v1/translations', 400, error_messages["noVideoId"]),
     ('/v1/translations?id=P6FORpg0KVo', 400, error_messages["noTargetLanguage"]),
     ('/v1/metadata', 400, error_messages["noVideoId"]),
