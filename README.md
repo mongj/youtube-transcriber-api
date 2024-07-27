@@ -1,6 +1,6 @@
 # youtube-transcriber-api
 
-Youtube's official API currently does not support fetching of a video's transcript. This project is a simple flask server built on top of [jdepoix's API](https://github.com/jdepoix/youtube-transcript-api) and provides  HTTP endpoints for retrieving pure-text transcripts for YouTube videos. It also provides the ability to translate transcripts into different languages.
+Youtube's official API currently does not support fetching of a video's transcript. This project is a simple flask server that provides API endpoints for retrieving pure-text transcripts for YouTube videos. It also provides the ability to translate transcripts into different languages. This project is built on top of [jdepoix's library](https://github.com/jdepoix/youtube-transcript-api)
 
 [![codecov](https://codecov.io/gh/mongj/youtube-transcriber-api/graph/badge.svg?token=T0DMUA1MD7)](https://codecov.io/gh/mongj/youtube-transcriber-api)
 
